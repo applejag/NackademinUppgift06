@@ -30,7 +30,17 @@ namespace NackademinUppgift06
 
 	        app.UseMvc(route =>
 	        {
-		        route.MapRoute("default", "{controller}/{action}/{id?}");
+		        route.MapRoute("homepage", "", new
+		        {
+			        controller = "Blog",
+			        action = "Index",
+		        });
+
+		        //route.MapRoute("posts", "post/{id}", new
+		        //{
+			       // controller = "Blog",
+			       // action = "Post",
+		        //});
 			});
         }
     }
