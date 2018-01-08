@@ -12,5 +12,10 @@ namespace NackademinUppgift06.Controllers
         {
             return View();
         }
+
+	    public IActionResult Create()
+	    {
+		    return View();
+	    }
     }
 }

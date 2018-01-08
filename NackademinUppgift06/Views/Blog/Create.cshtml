@@ -1,0 +1,40 @@
+﻿
+@model Post
+@{
+    ViewData["Title"] = "New blog post";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@ViewData["Title"] - @ViewData["SiteName"]</title>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+	<link asp-href-include="css/*.css" rel="stylesheet" />
+</head>
+<body>
+<h1>@ViewData["Title"]</h1>
+<p>
+	<a asp-action="Index">&#171; Home</a>
+</p>
+<form method="post">
+	<fieldset>
+		<legend>New blog post</legend>
+		<p>
+			<span asp-validation-for="Title" class="form-error"></span>
+			<label asp-for="Title"></label>
+			<input asp-for="Title" />
+		</p>
+		<p>
+			<span asp-validation-for="Content" class="form-error"></span>
+			<label asp-for="Content"></label>
+			<textarea asp-for="Content"></textarea>
+		</p>
+		<p>
+			<input type="submit" value="Submit"/>
+		</p>
+	</fieldset>
+</form>
+</body>
+</html>
