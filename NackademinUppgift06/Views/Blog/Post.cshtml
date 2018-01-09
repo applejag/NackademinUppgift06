@@ -1,0 +1,26 @@
+﻿
+@model Post
+
+@{
+	ViewData["Title"] = "Post";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@ViewData["Title"]</title>
+</head>
+<body>
+<h1>@ViewData["Title"]</h1>
+<p>
+	<a asp-action="Create">&#171; New post</a>
+	<a asp-action="Index">&#171; Home</a>
+</p>
+<div>
+	<fieldset>
+		<legend><b>@Model.Title</b> - <i>@Model.CreatedAt.ToString("g")</i></legend>
+		<pre>@Model.Content</pre>
+	</fieldset>
+</div>
+</body>
+</html>

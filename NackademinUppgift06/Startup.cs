@@ -51,12 +51,17 @@ namespace NackademinUppgift06
 			        controller = "Blog",
 		        });
 
-		        //route.MapRoute("posts", "post/{id}", new
-		        //{
-			       // controller = "Blog",
-			       // action = "Post",
-		        //});
-			});
+		        route.MapRoute("posts", "post/{id}", new
+		        {
+			        controller = "Blog",
+			        action = "Post",
+		        });
+
+		        route.MapRoute("category", "Category/{action=Create}", new
+		        {
+			        controller = "Category",
+		        });
+	        });
 			
         }
     }

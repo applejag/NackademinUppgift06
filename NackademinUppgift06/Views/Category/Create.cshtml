@@ -1,0 +1,60 @@
+﻿
+@model Category
+
+@{
+	ViewData["Title"] = "Categories";
+	List<Category> Categories = ViewBag.Categories;
+	bool wasCreated = ViewBag.wasCreated ?? false;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@ViewData["Title"]</title>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+	<link asp-href-include="css/*.css" rel="stylesheet" />
+</head>
+<body>
+<h1>@ViewData["Title"]</h1>
+<p>
+	<a asp-action="Index" asp-controller="Blog">&#171; Home</a><br />
+	@if (Categories.Count > 0)
+	{
+		<a asp-action="Create" asp-controller="Blog">&#171; New post</a>
+	}
+</p>
+<div>
+	<h2>Existing categories</h2>
+	<i>- @Categories.Count categor@(Categories.Count == 1 ? "y" : "ies") -</i>
+	<ul>
+		@foreach (Category category in Categories)
+		{
+			<li>@category.Name</li>
+		}
+	</ul>
+</div>
+<div>
+	@if (wasCreated)
+	{
+		<div>
+			<strong>Category @Model.Name created!</strong>
+		</div>
+	}
+	<form asp-action="Create">
+		<fieldset>
+			<legend><b>New category</b></legend>
+
+			<p>
+				<span asp-validation-for="Name" class="form-error"></span>
+				<label asp-for="Name"></label>
+				<input asp-for="Name"/>
+			</p>
+
+			<input type="submit" value="Submit"/>
+		</fieldset>
+	</form>
+</div>
+</body>
+</html>

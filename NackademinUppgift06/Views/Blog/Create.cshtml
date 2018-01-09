@@ -1,5 +1,5 @@
 ﻿
-@model Post
+@model ViewPost
 @{
     ViewData["Title"] = "New blog post";
 }
@@ -20,16 +20,19 @@
 </p>
 <form method="post">
 	<fieldset>
-		<legend>New blog post</legend>
+		<legend><b>New blog post</b></legend>
 		<p>
-			<span asp-validation-for="Title" class="form-error"></span>
-			<label asp-for="Title"></label>
-			<input asp-for="Title" />
+			<select asp-for="CurrentPost.CategoryID" asp-items="@Model.Categories"></select>
 		</p>
 		<p>
-			<span asp-validation-for="Content" class="form-error"></span>
-			<label asp-for="Content"></label>
-			<textarea asp-for="Content"></textarea>
+			<span asp-validation-for="CurrentPost.Title" class="form-error"></span>
+			<label asp-for="CurrentPost.Title"></label>
+			<input asp-for="CurrentPost.Title" />
+		</p>
+		<p>
+			<span asp-validation-for="CurrentPost.Content" class="form-error"></span>
+			<label asp-for="CurrentPost.Content"></label>
+			<textarea asp-for="CurrentPost.Content"></textarea>
 		</p>
 		<p>
 			<input type="submit" value="Submit"/>
