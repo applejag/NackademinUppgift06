@@ -1,4 +1,5 @@
 ﻿
+@model List<Post>
 @{
     ViewData["Title"] = "Home";
 }
@@ -14,5 +15,16 @@
 	<a asp-action="Create">&#171; New post</a><br/>
 	<a asp-action="Create" asp-controller="Category">&#171; Categories</a>
 </p>
+<div>
+	@foreach (Post post in Model)
+	{
+		<div>
+			<fieldset>
+			<legend><a asp-action="Post" asp-route-id="@post.ID"><b>@post.Title</b></a> - <a>@post.Category.Name</a> - <i>@post.CreatedAt.ToString("g")</i></legend>
+				<pre>@(post.Content.Length > 100 ? post.Content.Substring(0, 100)+"..." : post.Content)</pre>
+			</fieldset>
+		</div>
+	}
+</div>
 </body>
 </html>

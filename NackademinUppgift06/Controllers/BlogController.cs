@@ -20,7 +20,10 @@ namespace NackademinUppgift06.Controllers
 
         public async Task<IActionResult> Index()
         {
-	        List<Post> posts = await context.Posts.Include(p => p.Category).ToListAsync();
+	        List<Post> posts = await context.Posts
+				.Include(p => p.Category)
+				.OrderBy(p => p.CreatedAt)
+				.ToListAsync();
 
             return View(posts);
         }

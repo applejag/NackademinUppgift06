@@ -13,12 +13,13 @@
 <body>
 <h1>@ViewData["Title"]</h1>
 <p>
-	<a asp-action="Create">&#171; New post</a>
+	<a asp-action="Create">&#171; New post</a><br />
+	<a asp-action="Create" asp-controller="Category">&#171; New category</a><br />
 	<a asp-action="Index">&#171; Home</a>
 </p>
 <div>
 	<fieldset>
-		<legend><b>@Model.Title</b> - <i>@Model.CreatedAt.ToString("g")</i></legend>
+		<legend><b>@Model.Title</b> - <b>@Model.Category.Name</b> - <i>@Model.CreatedAt.ToString("g")</i></legend>
 		<pre>@Model.Content</pre>
 	</fieldset>
 </div>
