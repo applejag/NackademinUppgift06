@@ -1,0 +1,24 @@
+﻿
+.post-fieldset {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.post-title {
+	text-transform: uppercase;
+}
+
+.post-category {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.post-timestamp {
+	font-family: Courier New, Courier, monospace;
+	color: gray;
+	font-size: 80%;
+	padding-right: 0.5em;
+}
+
+.post-content {
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

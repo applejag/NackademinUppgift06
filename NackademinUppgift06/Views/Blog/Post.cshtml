@@ -9,6 +9,7 @@
 <html>
 <head>
 	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" asp-href-include="css/*.css" />
 </head>
 <body>
 <h1>@ViewData["Title"]</h1>
@@ -18,9 +19,9 @@
 	<a asp-action="Index">&#171; Home</a>
 </p>
 <div>
-	<fieldset>
-		<legend><b>@Model.Title</b> - <b>@Model.Category.Name</b> - <i>@Model.CreatedAt.ToString("g")</i></legend>
-		<pre>@Model.Content</pre>
+	<fieldset class="post-fieldset">
+		<legend><b class="post-title">@Model.Title</b> - <span class="post-category">@Model.Category.Name</span> - <i class="post-timestamp">@Model.CreatedAt.ToString("g")</i></legend>
+		<pre class="post-content">@Model.Content</pre>
 	</fieldset>
 </div>
 </body>

@@ -1,0 +1,21 @@
+﻿
+
+.form-search {
+	width: 100%;
+	border: 1px solid gray;
+	padding: 0.5em;
+	box-sizing: border-box;
+}
+
+.form-search > h3 {
+	display: inline-block;
+}
+
+.form-search > p {
+	display: inline-block;
+	float: right;
+}
+
+.form-search > h3, .form-search > p {
+	margin: 0;
+}
