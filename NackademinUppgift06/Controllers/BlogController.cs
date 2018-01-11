@@ -18,9 +18,11 @@ namespace NackademinUppgift06.Controllers
 		    this.context = context;
 	    }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+	        List<Post> posts = await context.Posts.Include(p => p.Category).ToListAsync();
+
+            return View(posts);
         }
 
 	    public async Task<IActionResult> Create()
@@ -45,7 +47,7 @@ namespace NackademinUppgift06.Controllers
 		    if (ModelState.IsValid)
 		    {
 			    await context.Posts.AddAsync(post.CurrentPost);
-			    context.Attach(post.CurrentPost.Category);
+			    //context.Attach(post.CurrentPost.Category);
 			    await context.SaveChangesAsync();
 
 			    return RedirectToAction("Post", post.CurrentPost.ID);
@@ -58,7 +60,9 @@ namespace NackademinUppgift06.Controllers
 
 	    public IActionResult Post(int id)
 	    {
-		    Post post = context.Posts.SingleOrDefault(p => p.ID == id);
+		    Post post = context.Posts
+				.Include(p => p.Category)
+				.SingleOrDefault(p => p.ID == id);
 
 		    if (post == default(Post))
 			    return RedirectToAction("Index");
