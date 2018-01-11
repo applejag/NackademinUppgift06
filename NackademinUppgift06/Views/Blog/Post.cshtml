@@ -3,26 +3,14 @@
 
 @{
 	ViewData["Title"] = "Post";
+	Layout = "~/Views/_LayoutMain.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>@ViewData["Title"]</title>
-	<link rel="stylesheet" asp-href-include="css/*.css" />
-</head>
-<body>
-<h1>@ViewData["Title"]</h1>
-<p>
-	<a asp-action="Create">&#171; New post</a><br />
-	<a asp-action="Create" asp-controller="Category">&#171; New category</a><br />
-	<a asp-action="Index">&#171; Home</a>
-</p>
 <div>
 	<fieldset class="post-fieldset">
-		<legend><b class="post-title">@Model.Title</b> - <span class="post-category">@Model.Category.Name</span> - <i class="post-timestamp">@Model.CreatedAt.ToString("g")</i></legend>
+		<legend><b class="post-title">@Model.Title</b>
+			- <a asp-action="Search" asp-route-Query="@Model.Category.Name" class="post-category">@Model.Category.Name</a>
+			- <i class="post-timestamp">posted on @Model.CreatedAt.ToString("d") at @Model.CreatedAt.ToString("t")</i></legend>
 		<pre class="post-content">@Model.Content</pre>
 	</fieldset>
 </div>
-</body>
-</html>

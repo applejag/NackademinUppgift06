@@ -2,44 +2,49 @@
 @model ViewSearch
 @{
     ViewData["Title"] = "Home";
+	Layout = "~/Views/_LayoutMain.cshtml";
+
 	List<Post> Posts = ViewBag.Posts;
-
-
+	int PostsCount = ViewBag.PostsCount;
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>@ViewData["Title"]</title>
-	<link asp-href-include="css/*.css" rel="stylesheet"/>
-</head>
-<body>
-<h1>@ViewData["Title"]</h1>
 <div>
 	<form asp-action="Search" method="get" class="form-search">
 		<h3>Search</h3>
 		<p>
 			<span asp-validation-for="Query" class="form-error"></span>
-			<label asp-for="Query"></label>
-			<input asp-for="Query"/>
+			<input asp-for="Query" placeholder="Query"/>
 
 			<input type="submit" value="Search"/>
 		</p>
 	</form>
 </div>
-<p>
-	<a asp-action="Create">&#171; New post</a><br/>
-	<a asp-action="Create" asp-controller="Category">&#171; New category</a>
-</p>
 <div>
-	<ul>
-		@foreach (Post post in Posts)
+	<p>
+		<i>@Posts.Count/@PostsCount posts</i>
+	</p>
+		@foreach (IGrouping<DateTime, Post> groupedByMonth in Posts.GroupBy(p => new DateTime(p.CreatedAt.Year, p.CreatedAt.Month, 1)))
 		{
-			<li>
-				<a asp-action="Post" asp-route-id="@post.ID" class="post-title"><b>@post.Title</b></a> - <span class="post-category">@post.Category.Name</span> - <i class="post-timestamp">@post.CreatedAt.ToString("g")</i>
-			</li>
+			int PostsThisMonth = groupedByMonth.Count();
+			<fieldset class="post-group post-group-month">
+				<legend>@groupedByMonth.Key.ToString("MMMM yyyy") - @PostsThisMonth @(PostsThisMonth == 1 ? "post" : "posts")</legend>
+					@foreach (IGrouping<DateTime, Post> groupedByDay in groupedByMonth.GroupBy(p => new DateTime(p.CreatedAt.Year, p.CreatedAt.Month, p.CreatedAt.Day)))
+					{
+						int PostsThisDay = groupedByDay.Count();
+						<fieldset class="post-group post-group-day">
+							<legend>@groupedByDay.Key.ToString("dddd d MMM") - @PostsThisDay @(PostsThisMonth == 1 ? "post" : "posts")</legend>
+							<ul>
+								@foreach (Post post in groupedByDay)
+								{
+									<li>
+										<a asp-action="Post" asp-route-id="@post.ID" class="post-title"><b>@post.Title</b></a>
+										- <a asp-action="Search" asp-route-Query="@post.Category.Name" class="post-category">@post.Category.Name</a>
+										- <i class="post-timestamp">Posted at @post.CreatedAt.ToString("HH:mm")</i>
+									</li>
+								}
+							</ul>
+						</fieldset>
+					}
+			</fieldset>
 		}
-	</ul>
 </div>
-</body>
-</html>

@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>@ViewData["Title"]</title>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+	<link asp-href-include="css/*.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>@ViewData["Title"]</h1>
+	<hr/>
+<p>
+	<a asp-controller="Blog" asp-action="Index">&#171; Home</a><br />
+	<a asp-controller="Blog" asp-action="Create">+ New post</a><br />
+	<a asp-controller="Category" asp-action="Create">+ New category</a><br />
+</p>
+@RenderBody()
+</body>
+</html>

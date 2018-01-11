@@ -65,9 +65,11 @@ namespace NackademinUppgift06.Controllers
 
 	    public async Task<IActionResult> Index()
 	    {
+			ViewBag.PostsCount = await context.Posts.CountAsync();
+
 		    ViewBag.Posts = await context.Posts
 			    .Include(p => p.Category)
-			    .OrderBy(p => p.CreatedAt)
+			    .OrderByDescending(p => p.CreatedAt)
 				.ThenBy(p => p.Title)
 			    .ToListAsync();
 
@@ -75,15 +77,24 @@ namespace NackademinUppgift06.Controllers
 		}
 
 		public async Task<IActionResult> Search(ViewSearch search)
-	    {
+		{
+			ViewBag.PostsCount = await context.Posts.CountAsync();
+
 		    ViewBag.Posts = await context.Posts
 				.Include(p => p.Category)
-				.OrderBy(p => p.CreatedAt)
+				.OrderByDescending(p => p.CreatedAt)
 				.ThenBy(p => p.Title)
-				.Where(p => SearchString(search.Query, p.Category.Name) || SearchString(search.Query, p.Title))
+				.Where(p => SearchPost(search.Query, p))
 				.ToListAsync();
 			
 		    return View("Index", search);
+	    }
+
+	    private static bool SearchPost(string needle, Post haystack)
+	    {
+		    return SearchString(needle, haystack.Category.Name)
+				|| SearchString(needle, haystack.Title)
+				|| SearchString(needle, haystack.Content);
 	    }
 
 	    private static bool SearchString(string needle, string haystack)

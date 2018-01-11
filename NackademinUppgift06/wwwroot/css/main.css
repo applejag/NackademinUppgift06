@@ -1,0 +1,11 @@
+﻿
+a {
+	text-decoration: none;
+	color: darkcyan;
+	border-bottom: 1px dotted darkcyan;
+}
+
+a:hover {
+	color: navy;
+	border-bottom: 1px solid navy;
+}

@@ -2,26 +2,14 @@
 @model ViewPost
 @{
     ViewData["Title"] = "New blog post";
+	Layout = "~/Views/_LayoutMain.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>@ViewData["Title"] - @ViewData["SiteName"]</title>
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-	<link asp-href-include="css/*.css" rel="stylesheet" />
-</head>
-<body>
-<h1>@ViewData["Title"]</h1>
-<p>
-	<a asp-action="Index">&#171; Home</a>
-</p>
 <form method="post">
 	<fieldset>
 		<legend><b>New blog post</b></legend>
 		<p>
+			<label asp-for="CurrentPost.Category"></label>
 			<select asp-for="CurrentPost.CategoryID" asp-items="@Model.Categories"></select>
 		</p>
 		<p>
@@ -39,5 +27,3 @@
 		</p>
 	</fieldset>
 </form>
-</body>
-</html>

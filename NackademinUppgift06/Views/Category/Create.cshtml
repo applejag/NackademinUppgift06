@@ -5,33 +5,16 @@
 	ViewData["Title"] = "Categories";
 	List<Category> Categories = ViewBag.Categories;
 	bool wasCreated = ViewBag.wasCreated ?? false;
+	Layout = "~/Views/_LayoutMain.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>@ViewData["Title"]</title>
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-	<link asp-href-include="css/*.css" rel="stylesheet" />
-</head>
-<body>
-<h1>@ViewData["Title"]</h1>
-<p>
-	<a asp-action="Index" asp-controller="Blog">&#171; Home</a><br />
-	@if (Categories.Count > 0)
-	{
-		<a asp-action="Create" asp-controller="Blog">&#171; New post</a>
-	}
-</p>
 <div>
 	<h2>Existing categories</h2>
 	<i>- @Categories.Count categor@(Categories.Count == 1 ? "y" : "ies") -</i>
 	<ul>
 		@foreach (Category category in Categories)
 		{
-			<li>@category.Name</li>
+			<li><a asp-controller="Blog" asp-action="Search" asp-route-Query="@category.Name">@category.Name</a></li>
 		}
 	</ul>
 </div>
@@ -56,5 +39,3 @@
 		</fieldset>
 	</form>
 </div>
-</body>
-</html>

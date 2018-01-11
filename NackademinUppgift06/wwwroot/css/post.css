@@ -4,12 +4,21 @@
 }
 
 .post-title {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	text-transform: uppercase;
 }
 
 .post-category {
-	text-transform: uppercase;
-	font-weight: bold;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	border: 1px dotted gray;
+	padding: 2px;
+}
+
+a.post-category {
+	border: 1px dotted darkcyan;
+}
+a.post-category:hover {
+	border: 1px solid navy;
 }
 
 .post-timestamp {
@@ -21,4 +30,41 @@
 
 .post-content {
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Group on front page */
+
+.post-group {
+	border: none;
+}
+
+.post-group-month {
+	border-top: 2px solid gray;
+	border-left: 2px dashed gray;
+	border-bottom: 1px dashed gray;
+	padding-bottom: 0;
+}
+
+.post-group-day {
+	border-left: 1px dashed gray;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: 0.4em;
+	margin-bottom: 0.2em;
+}
+
+.post-group-day > legend {
+	color: gray;
+	font-style: italic;
+}
+
+.post-group > ul {
+	margin: 0;
+	list-style: none;
+	padding-left: 0.5em;
+}
+
+.post-group > ul > li {
+	padding-top: 0.1em;
+	padding-bottom: 0.4em;
 }
