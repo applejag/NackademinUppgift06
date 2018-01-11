@@ -1,7 +1,10 @@
 ﻿
-@model List<Post>
+@model ViewSearch
 @{
     ViewData["Title"] = "Home";
+	List<Post> Posts = ViewBag.Posts;
+
+
 }
 
 <!DOCTYPE html>
@@ -11,6 +14,18 @@
 </head>
 <body>
 <h1>@ViewData["Title"]</h1>
+<div>
+	<form asp-action="Search" method="get" class="form-search">
+		<h3>Search</h3>
+		<p>
+			<span asp-validation-for="Query" class="form-error"></span>
+			<label asp-for="Query"></label>
+			<input asp-for="Query"/>
+
+			<input type="submit" value="Search"/>
+		</p>
+	</form>
+</div>
 <p>
 	<a asp-action="Create">&#171; New post</a><br/>
 	<a asp-action="Create" asp-controller="Category">&#171; Categories</a>

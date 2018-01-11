@@ -18,16 +18,6 @@ namespace NackademinUppgift06.Controllers
 		    this.context = context;
 	    }
 
-        public async Task<IActionResult> Index()
-        {
-	        List<Post> posts = await context.Posts
-				.Include(p => p.Category)
-				.OrderBy(p => p.CreatedAt)
-				.ToListAsync();
-
-            return View(posts);
-        }
-
 	    public async Task<IActionResult> Create()
 	    {
 		    // No categories?
@@ -71,6 +61,34 @@ namespace NackademinUppgift06.Controllers
 			    return RedirectToAction("Index");
 
 		    return View(post);
+		}
+
+	    public async Task<IActionResult> Index()
+	    {
+		    ViewBag.Posts = await context.Posts
+			    .Include(p => p.Category)
+			    .OrderBy(p => p.CreatedAt)
+				.ThenBy(p => p.Title)
+			    .ToListAsync();
+
+			return View();
+		}
+
+		public async Task<IActionResult> Search(ViewSearch search)
+	    {
+		    ViewBag.Posts = await context.Posts
+				.Include(p => p.Category)
+				.OrderBy(p => p.CreatedAt)
+				.ThenBy(p => p.Title)
+				.Where(p => SearchString(search.Query, p.Category.Name) || SearchString(search.Query, p.Title))
+				.ToListAsync();
+			
+		    return View("Index", search);
+	    }
+
+	    private static bool SearchString(string needle, string haystack)
+	    {
+		    return haystack?.IndexOf(needle?.Trim() ?? string.Empty, StringComparison.CurrentCultureIgnoreCase) != -1;
 	    }
     }
 }
