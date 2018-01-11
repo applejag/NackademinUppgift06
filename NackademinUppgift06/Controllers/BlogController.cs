@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -80,26 +81,33 @@ namespace NackademinUppgift06.Controllers
 		{
 			ViewBag.PostsCount = await context.Posts.CountAsync();
 
-		    ViewBag.Posts = await context.Posts
-				.Include(p => p.Category)
-				.OrderByDescending(p => p.CreatedAt)
-				.ThenBy(p => p.Title)
-				.Where(p => SearchPost(search.Query, p))
+			ViewBag.Posts = await (from p in context.Posts.Include(p => p.Category)
+					where SearchPost(search.Query, p, p.Category)
+					orderby p.CreatedAt descending
+					select p)
 				.ToListAsync();
 			
-		    return View("Index", search);
+			return View("Index", search);
+		}
+
+	    private static bool SearchPost(string needle, Post post, Category cat)
+	    {
+		    return SearchString(needle, cat.Name)
+		           || SearchString(needle, post.Title)
+		           || SearchString(needle, post.Content);
+		}
+
+		[Obsolete("Doesnt work because EF thinks I'm not using Post.Category so it doesn't load it :c", true)]
+	    private static bool SearchPost(string needle, Post post)
+	    {
+		    return SearchString(needle, post.Category.Name)
+		           || SearchString(needle, post.Title)
+		           || SearchString(needle, post.Content);
 	    }
 
-	    private static bool SearchPost(string needle, Post haystack)
+		private static bool SearchString(string needle, string haystack)
 	    {
-		    return SearchString(needle, haystack.Category.Name)
-				|| SearchString(needle, haystack.Title)
-				|| SearchString(needle, haystack.Content);
-	    }
-
-	    private static bool SearchString(string needle, string haystack)
-	    {
-		    return haystack?.IndexOf(needle?.Trim() ?? string.Empty, StringComparison.CurrentCultureIgnoreCase) != -1;
+		    return (haystack?.IndexOf(needle?.Trim() ?? string.Empty, StringComparison.CurrentCultureIgnoreCase) ?? -1) != -1;
 	    }
     }
 }
