@@ -1,7 +1,7 @@
-# Uppgift 5 - _Databasteknik, Nackademin_
+# Uppgift 6 - _Programmering med C# ASP.NET 1, Nackademin_
 
 ### Assignment
-> "Create a blog in ASP.NET MVC with categories and blog posts. All data shall be stored in a database via Entity Framework. As a user you can create blog posts (with input validation). All CSS has to be in dedicated .css files."
+> "Create a blog in ASP.NET MVC with categories and blog posts. All data shall be stored in a database via Entity Framework. As a user you can create blog posts (with input validation) and search for blog posts. All CSS has to be in dedicated .css files."
 
 ---
 
